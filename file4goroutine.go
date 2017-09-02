@@ -34,48 +34,46 @@ var printnum = Printnum{
 }
 
 func PrintN(i int) {
-	for {
-		go func(i int) {
-			for {
-				if printnum.Incr() == 100 {
-					return
-				}
-				<-chlista[i-1]
-				fmt.Print("a", i)
-				cha <- i%4 + 1
+	go func(i int) {
+		for {
+			if printnum.Incr() == 100 {
+				return
 			}
-		}(i)
-		go func(i int) {
-			for {
-				if printnum.Incr() == 100 {
-					return
-				}
-				<-chlistb[i-1]
-				fmt.Print("b", i)
-				chb <- i%4 + 1
+			<-chlista[i-1]
+			fmt.Print("a", i)
+			cha <- i%4 + 1
+		}
+	}(i)
+	go func(i int) {
+		for {
+			if printnum.Incr() == 100 {
+				return
 			}
-		}(i)
-		go func(i int) {
-			for {
-				if printnum.Incr() == 100 {
-					return
-				}
-				<-chlistc[i-1]
-				fmt.Print("c", i)
-				chc <- i%4 + 1
+			<-chlistb[i-1]
+			fmt.Print("b", i)
+			chb <- i%4 + 1
+		}
+	}(i)
+	go func(i int) {
+		for {
+			if printnum.Incr() == 100 {
+				return
 			}
-		}(i)
-		go func(i int) {
-			for {
-				if printnum.Incr() == 100 {
-					return
-				}
-				<-chlistd[i-1]
-				fmt.Print("d", i)
-				chd <- i%4 + 1
+			<-chlistc[i-1]
+			fmt.Print("c", i)
+			chc <- i%4 + 1
+		}
+	}(i)
+	go func(i int) {
+		for {
+			if printnum.Incr() == 100 {
+				return
 			}
-		}(i)
-	}
+			<-chlistd[i-1]
+			fmt.Print("d", i)
+			chd <- i%4 + 1
+		}
+	}(i)
 }
 
 var ch1a = make(chan int)
@@ -151,5 +149,5 @@ func main() {
 	chb <- 3
 	chc <- 2
 
-	time.Sleep(time.Second * 10)
+	time.Sleep(time.Second * 1)
 }
