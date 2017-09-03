@@ -6,6 +6,8 @@ import (
 
 //Definition for singly-linked list.
 
+//链表的所有奇数节点放在所有偶数节点的前面，奇数偶数说的是节点的位置，不是节点里面的值
+
 type ListNode struct {
 	Val  int
 	Next *ListNode

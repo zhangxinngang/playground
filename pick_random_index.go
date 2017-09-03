@@ -5,6 +5,8 @@ import (
 	"math/rand"
 )
 
+//在一个数组里，给定一个数target 随机从target的index中找出一个index，机会相同
+
 type Solution struct {
 	NumMap map[int][]int
 }
