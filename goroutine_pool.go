@@ -10,10 +10,12 @@ var wg sync.WaitGroup
 
 type GoroutinePool struct {
 	Channel chan func()
+	Num     int
 }
 
 func (g *GoroutinePool) Init(num int) {
 	g.Channel = make(chan func(), num)
+	g.Num = num
 }
 
 func (g *GoroutinePool) Add(f func()) {
@@ -21,13 +23,14 @@ func (g *GoroutinePool) Add(f func()) {
 }
 
 func (g *GoroutinePool) Run() {
-	i := 1
-	go func() {
-		for {
-			task := <-g.Channel
-			go task()
-		}
-	}()
+	for i := 0; i < g.Num; i++ {
+		go func() {
+			for {
+				task := <-g.Channel
+				task()
+			}
+		}()
+	}
 }
 
 func print() {
