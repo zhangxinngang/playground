@@ -1,7 +1,6 @@
 package main
 
 import "fmt"
-import "container/list"
 
 type ListNode struct {
 	Val  int
@@ -12,6 +11,37 @@ func (l *ListNode) Print() {
 	for node := l; node != nil; node = node.Next {
 		fmt.Println(node.Val)
 	}
+}
+
+func deleteDuplicates(head *ListNode) *ListNode {
+	current := head
+	for current != nil && current.Next != nil {
+		if current.Next.Val == current.Val {
+			current.Next = current.Next.Next
+		} else {
+			current = current.Next
+		}
+	}
+	return head
+}
+
+func deleteDuplicates2(head *ListNode) *ListNode {
+	current := head
+	//dupli := &ListNode{}
+	undupli := head
+	for current != nil && current.Next != nil && current.Next.Next != nil {
+		if current.Next.Next.Val == current.Next.Val {
+			//fmt.Println("dupli", current.Next.Next.Val, current.Next.Val, current.Val)
+			undupli = current
+			fmt.Println(undupli.Val)
+			current = current.Next
+		} else {
+			//current = current.Next
+			undupli.Next = current.Next.Next
+		}
+		//fmt.Println("loop:", current.Next.Val, undupli.Val)
+	}
+	return head
 }
 
 func insertionSortList(head *ListNode) *ListNode {
@@ -46,11 +76,11 @@ func main() {
 		Val: 1,
 	}
 	n.Next = &ListNode{
-		Val: 3,
+		Val: 2,
 	}
 	cur := n.Next
 	cur.Next = &ListNode{
-		Val: 2,
+		Val: 5,
 	}
 	cur = cur.Next
 	cur.Next = &ListNode{
@@ -58,15 +88,14 @@ func main() {
 	}
 	cur = cur.Next
 	cur.Next = &ListNode{
-		Val: 10,
+		Val: 5,
 	}
 	cur = cur.Next
 	cur.Next = &ListNode{
-		Val: 6,
+		Val: 5,
 	}
-	head := &ListNode{
-		Next: n,
-	}
-	l := list.New()
-	insertionSortList(n)
+
+	//insertionSortList(n)
+	deleteDuplicates2(n)
+	n.Print()
 }

@@ -1,42 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 //var wg sync.WaitGroup
 
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
 func main() {
-	//wg.Add(-1)
-	// cmd := exec.Command("ls", "-l")
-	// var out bytes.Buffer
-	// cmd.Stdout = &out
-	// fmt.Println(cmd.Run())
-	// fmt.Println(out.String())
-
-	// c := time.Tick(time.Second * 3)
-	// for now := range c {
-	// 	fmt.Println("now:", now)
-	// }
-	// var ch1 = make(chan int, 2)
-	// //ch1 <- 1
-	// //for {
-	// select {
-	// case <-time.After(time.Second * 3):
-	// 	fmt.Println("time out")
-	// 	return
-	// case a := <-ch1:
-	// 	time.Sleep(time.Second * 5)
-	// 	fmt.Println("running", a)
-	// }
-	//}
-	//fmt.Println(removeDuplicates([]int{1, 1, 2, 2}))
-	a := new(int)
-	b := make([]int, 2)
-	fmt.Println(&a, b, a)
-
-	str := "asbdg"
-	for _, v := range str {
-		fmt.Println(v)
-	}
+	root := &TreeNode{Val: 0}
+	fmt.Println(isValidBST(root))
 }
 
 func removeDuplicates(nums []int) int {
@@ -45,4 +23,26 @@ func removeDuplicates(nums []int) int {
 		mapp[v] = 1
 	}
 	return len(mapp)
+}
+
+var pre = &TreeNode{}
+var n = 0
+
+func isValidBST(root *TreeNode) bool {
+	if n == 0 && root.Left == nil && root.Right == nil {
+		fmt.Println("sdgs")
+		n++
+		return true
+	}
+	if root != nil {
+		if !isValidBST(root.Left) {
+			return false
+		}
+		if pre != nil && root.Val <= pre.Val {
+			return false
+		}
+		pre = root
+		return isValidBST(root.Right)
+	}
+	return true
 }
