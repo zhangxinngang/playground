@@ -12,3 +12,4 @@ func (l *ListNode) Print() {
 		fmt.Println(node.Val)
 	}
 }
+
