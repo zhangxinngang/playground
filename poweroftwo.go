@@ -1,8 +1,6 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func isPowerOfTwo(n int) bool {
 	//判断n是不是2的次方
