@@ -27,4 +27,6 @@ func main() {
 	inter = i
 	_, ok := interface{}(i).(A)
 	fmt.Println(ok, inter)
+
+	var _ A = Info{}
 }
