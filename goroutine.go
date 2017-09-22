@@ -22,12 +22,12 @@ func Deadloop() {
 }
 
 func main() {
-	runtime.GOMAXPROCS(2)
+	runtime.GOMAXPROCS(1)
 	go Deadloop()
 	rand.Seed(time.Now().UnixNano())
 	//go fmt.Println(1)
 	//time.Sleep(time.Second * 10)
 	for {
-		//runtime.Gosched()
+		runtime.Gosched()
 	}
 }
